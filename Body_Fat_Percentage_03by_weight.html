@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <form id="Bodyfat03">
+            <div class="mb-3" id="input_gender">
+                <label >性別：</label>
+                <div class="form-check">
+                    <label class="form-check-label" for="">
+                        <input type="radio" id="male" name="gender" value=1 checked>
+                        男</label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label" for="">
+                        <input type="radio" id="female" name="gender" value=0>
+                        女</label>
+                </div>
+            </div>
+
+            <div class="mb-3" id="input_age">
+                <label for="" class="form-label">年紀：</label>
+                <input type="text" class="form-control" name="age">
+            </div>
+
+            <div class="mb-3" id="input_weight">
+                <label for="" class="form-label">體重（公斤）：</label>
+                <input type="text" class="form-control" name="weight">
+            </div>
+
+            <div class="mb-3" id="input_waist">
+                <label for="" class="form-label">腰圍（公分）：</label>
+                <input type="text" class="form-control" name="waist">
+            </div>
+
+            <div class="mb-3" id="input_hip" style="display: none;">
+                <label for="" class="form-label">臀圍（公分）：</label>
+                <input type="text" class="form-control" name="hip">
+            </div>
+
+            <div class="mb-3" id="input_wrist" style="display: none;">
+                <label for="" class="form-label">手腕圍（公分）：</label>
+                <input type="text" class="form-control" name="wrist">
+            </div>
+
+            <div class="mb-3" id="input_arm" style="display: none;">
+                <label for="" class="form-label">前臂圍（公分）：</label>
+                <input type="text" class="form-control" name="arm">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg btn-block" name="calculate">計算體脂率</button>
+
+            <div class="mt-3" id="input_result">
+                <label for="" class="form-label">估計的體脂率（%）：</label>
+                <input type="text" class="form-control" id="result">
+            </div>
+        </form>
+    </div>
+
+    <style>
+        #Bodyfat03 {
+            padding: 50px;
+            width: 50%;
+            margin: 0 auto;
+            border: 5px dashed #CED4DA;
+            font-family: 'Noto Sans TC', sans-serif;
+            font-size: 20px;
+        }
+        #input_gender{
+            display: flex;
+        }
+    </style>
+
+    <script>
+        $("#female").change(function () {
+            $("#input_hip").toggle();
+            $("#input_wrist").toggle();
+            $("#input_arm").toggle();
+        });
+        $("#male").change(function () {
+            $("#input_hip").toggle();
+            $("#input_wrist").toggle();
+            $("#input_arm").toggle();
+        })
+
+        $(document).ready(function () {
+            $("#Bodyfat03").submit(function (e) {
+                e.preventDefault();
+                var weight = $("[name='weight']").val();
+                var age = $("[name='age']").val();
+                var gender = $("[name='gender']").val();
+                var waist = $("[name='waist']").val();
+                var hip = $("[name='hip']").val();
+                var wrist = $("[name='wrist']").val();
+                var arm = $("[name='arm']").val();
+                var fat;
+                var value1;
+                var value2;
+                var bodymass;
+                var value3;
+                var value4;
+                var value5;
+                var value6;
+                var value7;
+                var value8;
+                var value9;
+                var value10;
+                var last;
+
+                if (age > 0) {
+                    if (gender == 1) {
+                        value1 = (weight / 0.45359237 * 1.082) + 94.42;
+                        value2 = (waist / 2.54) * 4.15;
+                        bodymass = value1 - value2;
+                        value3 = (weight / 0.45359237) - bodymass;
+                        fat = value3 / (weight / 0.45359237) * 100;
+                    } else {
+                        value1 = 0.732 * (weight / 0.45359237);
+                        value2 = value1 + 8.987;
+                        value3 = (wrist / 2.54) / 3.14;
+                        value4 = (waist / 2.54) * 0.157;
+                        value5 = (hip / 2.54) * 0.249;
+                        value6 = (arm / 2.54) * 0.434;
+                        value7 = value2 + value3;
+                        value8 = value7 - value4;
+                        value9 = value8 - value5;
+                        bodymass = value6 + value9;
+                        value10 = (weight / 0.45359237) - bodymass;
+                        fat = value10 / (weight / 0.45359237);
+                    }
+                    last = Math.round(fat * 10) / 10;
+                    $("#result").val(last);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

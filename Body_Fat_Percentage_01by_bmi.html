@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="Body_Fat_Percentage_01by_bmi.js"></script>
+</head>
+
+<body>
+    <form id="BODY">
+        <br>
+        <label>身高（公分）：</label>
+        <input type="text" name="height">
+        <br>
+        <label>體重（公斤）：</label>
+        <input type="text" name="weight">
+        <br>
+        <label>年紀（歲）：</label>
+        <input type="text" name="age">
+        <br>
+        <label>性別：</label>
+        <select name="gender">
+            <option value="0">女</option>
+            <option value="1">男</option>
+        </select>
+        <br>
+
+        <input type="submit" id="calculate">
+        <div>
+            <br>
+            <label>估計體脂率（%）：</label>
+            <input class="final" type="text" id="result">
+        </div>
+    </form> 
+
+</body>
+
+</html>

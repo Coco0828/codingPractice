@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="result"></p>
+    <script>
+        /*function selectionSort(userinput) {
+            var max;
+            var tmp;
+            for (var i = 0; i < userinput.length; i++) {
+                max = i;
+                for (j = i + 1; j < userinput.length; j++) {
+                    if (userinput[max] < userinput[j]) {
+                        max = j;
+                    }
+                }
+                if (max != i) {
+                    tmp = userinput[i];
+                    userinput[i] = userinput[max];
+                    userinput[max] = tmp;
+                }
+
+            }
+            return userinput;
+        }
+        document.getElementById("result").innerHTML = selectionSort([2,1,7,5,2,4,6,3,8])*/
+        
+        function insertionSort(arr){
+            for(var i = 1; i < arr.length; i++){
+                var key = arr[i];
+                var j = i - 1;
+                while (key > arr[j] && j >= 0){
+                    arr[j+1] = arr[j];
+                    j--;
+                }
+                arr[j+1] = key;
+            }
+            return arr
+        }
+        var array = [1,4,5,8,6,7,3,9,2,0];
+        document.getElementById("result").innerHTML = insertionSort(array);
+    
+    </script>
+</body>
+
+</html>

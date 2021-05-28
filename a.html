@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <form id="table">
+        <div class="mb-3" id="input_height">
+            <input type="text" class="form-control" name="number">
+        </div>
+
+
+
+    </form>
+    <p id="result"></p>
+
+    <script>
+        var number;
+        $(document).ready(function () {
+            $("#table").submit(function (e) {
+                e.preventDefault();
+                userinput = $("[name='number']").val();
+                table(userinput)
+
+            });
+        });
+        var answer = "";
+
+        //指定數字的1-9倍數
+        function table(n){
+            var num;
+            for (var i = 1; i <= 9; i++){
+                num = n * i;
+                answer += (n + "*" + i + "=" + num + "<br>");
+            }
+            document.getElementById("result").innerHTML = answer;
+        }
+
+        document.onkeydown = checkKey;
+        function checkKey(e) {
+            e = e || window.event;
+            if (e.keyCode = '46') {
+                document.getElementById("result").innerHTML = "";
+                answer = "";
+            }
+        }
+
+
+        /*function stars2(n) {
+            var count = [];
+            var stars = "";
+            for (var k = 0; k < 2; k++) {
+                for (var i = 0; i <= n; i++) {
+                    stars += "*"
+                    count.push(stars);
+                }
+            }
+
+            return count.join("\n");
+        }
+
+        console.log(stars2(10))*/
+
+        //九九乘法表
+        /*function table9to9() {
+            var num;
+            var answer = "";
+            for (var k = 1; k <= 9; k++) {
+                for (var i = 1; i <= 9; i++) {
+                    num = k * i;
+                    answer += k + "x" + i + "=" + num + "<br>";
+                    
+                }
+            }
+            document.getElementById("result").innerHTML = answer;
+        }
+        table9to9()*/
+
+        //費氏數列
+
+        /*function fib(n) {
+            var fibarray = [0, 1];
+            if (n <= 0) {
+                return 0
+            }
+            if (n > 0 && n <= 2) {
+                return 1
+            }
+            for (var i = 2; i <= n; i++) {
+                fibarray.push(fibarray[i - 1] + fibarray[i - 2])
+            }
+            document.getElementById("result").innerHTML = fibarray;
+
+        }
+        fib(9)*/
+
+        //字母顛倒
+        /*function reverse(word) {
+            var answer = "";
+            for (var i = word.length - 1; i >= 0; i--) {
+                answer += word[i];
+            }
+            document.getElementById("result").innerHTML = answer;
+        }*/
+
+        //大小寫互換
+        /*function swap(userinput){
+            var array = [];
+            for(var i = 0; i < userinput.length; i++){
+                if(userinput[i].charCodeAt() >= 65 && userinput[i].charCodeAt() <= 90){
+                    array.push(String.fromCharCode((userinput[i].charCodeAt() + 32)));
+                } else if(userinput[i].charCodeAt() >= 97 && userinput[i].charCodeAt() <= 122){
+                    array.push(String.fromCharCode((userinput[i].charCodeAt() - 32)));
+                } else {
+                    array.push(userinput[i])
+                }
+                
+            }
+            array.join("");
+            document.getElementById("result").innerHTML = array;
+        }*/
+
+        //找陣列的最小值
+        /*function findMin(userinput){
+            var min = userinput[0];
+            for(var i = 0; i <= userinput.length; i++){
+                if (userinput[i] < min){
+                    min = userinput[i];
+                }
+            }
+            console.log(min)
+        }
+        findMin([2, 3, 4, 5])*/
+
+
+        /*function findNthMin(array, num) {
+            var mintomax = [];
+            var min = array[0];
+            for (var i = 0; i <= array.length; i++) {
+                if (array[i] < min){
+                    min = userinput[i];
+                }
+                if (min != i){
+                    var tmp = array[i];
+                    array[i] = array[min];
+                    array[min] = tmp;
+                }
+            }*/
+
+        /*function selectionSort(userinput) {
+            var min;
+            var tmp;
+            for (var i = 0; i < userinput.length; i++) {
+                min = i;
+                for (j = i + 1; j < userinput.length; j++) {
+                    if (userinput[min] > userinput[j]) {
+                        min = j;
+                    }
+                }
+                if (min != i) {
+                    tmp = userinput[i];
+                    userinput[i] = userinput[min];
+                    userinput[min] = tmp;
+                }
+
+            }
+            return userinput;
+        }*/
+
+        /*document.getElementById("result").innerHTML = selectionSort([5,2,3,1,8])
+
+        array1 = [5,2,3,1,8]
+        console.log(array1.sort());*/
+
+
+        /*function flatten(userinput) {
+            var tmparray = [];
+            for (var i = 0; i < userinput.length; i++) {
+                if (Array.isArray(userinput[i])) {
+                    var flat = flatten(userinput[i]);
+                    for (var j = 0; j < flat.length; j++){
+                        tmparray.push(flat[j]);
+                    }
+                } else {
+                    tmparray.push(userinput[i]);
+                }
+            }
+            return tmparray
+        }
+        document.getElementById("result").innerHTML = selectionSort(flatten([5,[2],3,[1,9],8]))*/
+
+        /*function tree(userinput) {
+            printTop(userinput)
+            printBottom(userinput)
+        }
+        function printTop(userinput) {
+            for (var i = 1; i <= userinput; i++) {
+                console.log(" ".repeat(userinput - i) + "*".repeat(2 * i - 1))
+            }
+        }
+        function printBottom(userinput) {
+            if(userinput === 1){
+                return
+            }
+            for (var j = 1; j <= userinput; j++) {
+                console.log(" ".repeat(userinput - 1) + "*")
+            }
+        }
+        tree(10)*/
+
+        /*function winner(userinput) {
+
+            if (userinput[0] === userinput[1] && userinput[0] === userinput[2]) {
+                return userinput[0]
+            }
+            if (userinput[3] === userinput[4] && userinput[3] === userinput[5]) {
+                return userinput[3]
+            }
+
+            if (userinput[0][0] === userinput[1][1] && userinput[0][0] === userinput[2][2]) {
+                return userinput[0][0]
+            }
+            if (userinput[0][2] === userinput[1][1] && userinput[0][2] === userinput[2][0]) {
+                return userinput[0][2]
+            }
+            return "draw"
+        }
+        console.log(winner(['O', 'O', 'X',
+                            'X', 'X', 'X',
+                            'O', 'X', 'O']));*/
+
+        /*function isPrime(userinput){
+            if (userinput === 1){
+                return false
+            }
+            for (var i = 2; i < userinput; i++){
+                if (userinput % i === 0){
+                    return false
+                }
+            }
+            return true
+        }
+        console.log(isPrime(101))*/
+    </script>
+</body>
+
+</html>

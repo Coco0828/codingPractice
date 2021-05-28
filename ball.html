@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="800" height="350" style="border:2px solid black;"></canvas>
+    <div class = "status">
+        <p id="score">分數：</p>
+        <p id="time">時間：</p>
+    </div>
+    <p id="gameOver" class = "status"></p>
+    <script>
+        const endMessage = "遊戲結束"
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        var ballX = 525;
+        var ballY = 235;
+        var paddleHeight = 20;
+        var paddleWidth = 120;
+        var paddleX = canvas.width / 2 - paddleWidth / 2;
+        var paddleY = canvas.height - paddleHeight;
+        var ballRadius = 15;
+        var rightPressed = false;
+        var leftPressed = false;
+        var ballMoveX = 1;
+        var ballMoveY = -1;
+        var paddleSpeed = 5;
+        var ballSpeed = 1.5;
+        var gameTime = 0;
+        var gameTotalTime = 30;
+        var score = 0;
+        function drawBall() {
+            ctx.beginPath();
+            ctx.arc(ballX, ballY, ballRadius, 0, 2 * Math.PI);
+            ctx.fillStyle = "#E1C4C4";
+            ctx.fill();
+        }
+
+        document.addEventListener("keydown", keyDownHandler, false);
+        document.addEventListener("keyup", keyUpHandler, false);
+
+        function keyDownHandler(e) {
+            if (e.keyCode == 39) {
+                rightPressed = true;
+                console.log("right");
+            } else if (e.keyCode == 37) {
+                leftPressed = true;
+                console.log("left");
+            }
+        }
+        function keyUpHandler(e) {
+            if (e.keyCode == 39) {
+                rightPressed = false;
+            } else if (e.keyCode == 37) {
+                leftPressed = false;
+            }
+        }
+
+        function drawPaddle() {
+            ctx.beginPath();
+            ctx.rect(paddleX, paddleY, paddleWidth, paddleHeight);
+            ctx.fillStyle = "#D9B3B3";
+            ctx.fill();
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawPaddle();
+            drawBall();
+            if (rightPressed && paddleX < canvas.width - paddleWidth) {
+                paddleX += paddleSpeed;
+            }
+            if (leftPressed && paddleX > 0) {
+                paddleX -= paddleSpeed;
+            }
+            ballX += ballSpeed * ballMoveX;
+            ballY += ballSpeed * ballMoveY;
+            if (ballX > canvas.width - ballRadius || ballX < ballRadius) {
+                ballMoveX = -ballMoveX;
+            }
+            if (ballY < ballRadius) {
+                ballMoveY = -ballMoveY;
+            }
+            if (ballX > paddleX && ballX < paddleX + paddleWidth) {
+                if (ballY > canvas.height - paddleHeight - ballRadius) {
+                    ballMoveY = -ballMoveY;
+                    score++;
+                    document.getElementById("score").innerHTML = "分數：" + score;
+                }
+            }
+            if (ballY > canvas.height - ballRadius) {
+                document.getElementById("gameOver").innerHTML = endMessage;
+                clearInterval(game)
+            }
+
+            gameTime += 1;
+            document.getElementById("time").innerHTML = "時間：" + Math.round(gameTime / 100) + "秒";
+        }
+
+        var game = setInterval(draw, 10);
+    </script>
+    <style>
+        .status {
+            font-size: 25px;
+            font-weight: bold;
+            width: 800px;
+            height: 50px;
+        }
+        #time{
+            float: right;
+        }
+        #score{
+            float: left;
+        }
+        body {
+            overflow-y: hidden;
+        }
+        p{
+            margin: 0;
+
+        }
+    </style>
+</body>
+
+</html>
