@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <title>Document</title>
 </head>
+
 <body>
-    <script src="question100.js"></script>
-    <div id = "answer"></div>
+    <form id="BODY">
+        <label>年（西元）：</label>
+        <input type="text" name="year">
+        <br>
+        <label>月：</label>
+        <input type="text" name="month">
+        <br>
+        <label>日：</label>
+        <input type="text" name="date">
+        <script src="question100.js"></script>
+        <div id="answer"></div>
+        <input type="submit" id="calculate">
+    </form>
 </body>
+
 </html>
