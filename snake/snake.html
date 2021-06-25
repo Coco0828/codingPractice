@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,14 +8,155 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <title>Document</title>
 </head>
+
 <body>
-    <canvas id = "canvas" height = "608" width = "608"></canvas>
-    <script src = "snake.js"></script>
+    <canvas id="canvas" height="608" width="608"></canvas>
+    <button id="restart">RESTART</button>
+    <script>const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        const num = 32;
+        var score = 0;
+        let apple = new Image();
+        let grape = new Image();
+        let background = new Image();
+        apple.src = "img/food.png";
+        grape.src = "img/Fruits-grape02.png";
+        background.src = "img/ground.png";
+        let deadSound = new Audio();
+        deadSound.src = "./audio/dead.mp3";
+        let upSound = new Audio();
+        upSound.src = "./audio/up.mp3";
+        let downSound = new Audio();
+        downSound.src = "./audio/down.mp3";
+        let leftSound = new Audio();
+        leftSound.src = "./audio/left.mp3";
+        let rightSound = new Audio();
+        rightSound.src = "./audio/right.mp3";
+        let eatSound = new Audio();
+        eatSound.src = "./audio/eat.mp3";
+        var snake = [];
+        snake[0] = { x: 9 * num, y: 10 * num };
+        var food = [];
+        switchPosition();
+
+        function draw() {
+            ctx.drawImage(background, 0, 0);
+            for (var i = 0; i < snake.length; i++) {
+                ctx.fillStyle = (i == 0) ? "white" : "green";
+                ctx.fillRect(snake[i].x, snake[i].y, num, num);
+                ctx.stokeStyle = "white";
+                ctx.strokeRect(snake[i].x, snake[i].y, num, num);
+            }
+            console.log(snake);
+
+            ctx.drawImage(apple, food[0].x, food[0].y);
+            ctx.font = "45px Arial";
+            ctx.fillStyle = "white";
+            ctx.fillText(score, 2 * num, 1.6 * num);
+
+            ctx.drawImage(grape, food[1].x, food[1].y);
+
+            var snakeX = snake[0].x;
+            var snakeY = snake[0].y;
+
+            if (d == "left") snakeX -= num;
+            if (d == "up") snakeY -= num;
+            if (d == "right") snakeX += num;
+            if (d == "down") snakeY += num;
+
+
+            if (snakeX == food[0].x && snakeY == food[0].y) {
+                score++;
+                eatSound.play();
+                switchPosition();
+
+            } else {
+                snake.pop();
+            }
+
+            if (snakeX == food[1].x && snakeY == food[1].y) {
+                score += 2;
+                eatSound.play();
+                switchPosition();
+
+            } else {
+                snake.pop();
+            }
+
+            if (snakeX < num || snakeX > 17 * num || snakeY < 3 * num || snakeY > 17 * num) {
+                deadSound.play();
+                clearInterval(game);
+            }
+
+            var newHead = {
+                x: snakeX,
+                y: snakeY
+            };
+            snake.unshift(newHead);
+        }
+
+        function switchPosition() {
+            for (var i = 0; i < 2; i++) {
+                food[i] = {
+                    x: Math.floor(Math.random() * 17 + 1) * num,
+                    y: Math.floor(Math.random() * 15 + 3) * num
+                }
+            }
+        }
+
+        var d;
+        document.addEventListener("keydown", CTRL);
+        function CTRL(event) {
+            if (event.keyCode == 65 && d != "right") {       //left
+                d = "left";
+                leftSound.play();
+            }
+            if (event.keyCode == 87 && d != "down") {       //up
+                d = "up";
+                upSound.play();
+            }
+            if (event.keyCode == 68 && d != "left") {       //right
+                d = "right";
+                rightSound.play();
+            }
+            if (event.keyCode == 83 && d != "up") {       //down
+                d = "down";
+                downSound.play();
+            }
+        }
+
+        function collision(newHead, snake) {
+            for (var j = 0; j < snake.length; j++) {
+                if (newHead.x == snake[j].x && newHead.y == snake[j].y) {
+                    deadSound.play();
+                    clearInterval(game);
+                }
+            }
+        }
+
+        if (document.getElementById("restart")) {
+            document.getElementById("restart").addEventListener("click", function () {
+                console.log("restart");
+                location.reload();
+            });
+        }
+
+
+
+        ctx.fillStyle = "#921AFF";
+        ctx.fillRect(5 * num, 5 * num, num, num);
+
+        var game = setInterval(draw, 150);
+
+
+        //2hw - prompt level & game over popup
+    </script>
 
     <style>
-        body{
+        body {
             margin: 0px;
         }
     </style>
 </body>
+
 </html>
