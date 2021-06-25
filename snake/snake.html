@@ -12,16 +12,29 @@
 <body>
     <canvas id="canvas" height="608" width="608"></canvas>
     <button id="restart">RESTART</button>
-    <script>const canvas = document.getElementById("canvas");
+    <script>
+        let apple = new Image();
+        let grape = new Image();
+        let banana = new Image();
+        let berry = new Image();
+        let cherry = new Image();
+        let orange = new Image();
+        let peach = new Image();
+        let background = new Image();
+        apple.src = "img/Fruits-apple01.png";
+        grape.src = "img/Fruits-grape02.png";
+        banana.src = "img/Fruits-banana01.png";
+        berry.src = "img/Fruits-berry02.png";
+        cherry.src = "img/Fruits-cherry01.png";
+        orange.src = "img/Fruits-orange01.png";
+        peach.src = "img/Fruits-peach01.png";
+        background.src = "img/ground.png";
+    </script>
+    <script>
+        const canvas = document.getElementById("canvas");
         const ctx = canvas.getContext("2d");
         const num = 32;
         var score = 0;
-        let apple = new Image();
-        let grape = new Image();
-        let background = new Image();
-        apple.src = "img/food.png";
-        grape.src = "img/Fruits-grape02.png";
-        background.src = "img/ground.png";
         let deadSound = new Audio();
         deadSound.src = "./audio/dead.mp3";
         let upSound = new Audio();
@@ -36,8 +49,18 @@
         eatSound.src = "./audio/eat.mp3";
         var snake = [];
         snake[0] = { x: 9 * num, y: 10 * num };
+        //snake[1] = { x: 10 * num, y: 10 * num };
         var food = [];
+        var fruits = [apple, grape, banana, berry, cherry, orange, peach];
+        var randomN = Math.floor(Math.random() * 7);
+        var randomN2 = Math.floor(Math.random() * 7);
+        food[0] = {}
+        food[1] = {}
         switchPosition();
+
+        if (randomN == randomN2) {
+            randomN = Math.floor(Math.random() * 7);
+        }
 
         function draw() {
             ctx.drawImage(background, 0, 0);
@@ -47,14 +70,13 @@
                 ctx.stokeStyle = "white";
                 ctx.strokeRect(snake[i].x, snake[i].y, num, num);
             }
-            console.log(snake);
 
-            ctx.drawImage(apple, food[0].x, food[0].y);
+            ctx.drawImage(fruits[randomN2], food[0].x, food[0].y);
             ctx.font = "45px Arial";
             ctx.fillStyle = "white";
             ctx.fillText(score, 2 * num, 1.6 * num);
 
-            ctx.drawImage(grape, food[1].x, food[1].y);
+            ctx.drawImage(fruits[randomN], food[1].x, food[1].y);
 
             var snakeX = snake[0].x;
             var snakeY = snake[0].y;
@@ -65,17 +87,8 @@
             if (d == "down") snakeY += num;
 
 
-            if (snakeX == food[0].x && snakeY == food[0].y) {
+            if ((snakeX == food[0].x && snakeY == food[0].y) || (snakeX == food[1].x && snakeY == food[1].y)) {
                 score++;
-                eatSound.play();
-                switchPosition();
-
-            } else {
-                snake.pop();
-            }
-
-            if (snakeX == food[1].x && snakeY == food[1].y) {
-                score += 2;
                 eatSound.play();
                 switchPosition();
 
@@ -93,10 +106,16 @@
                 y: snakeY
             };
             snake.unshift(newHead);
+
+            /*for (var j = 0; j < snake.length; j++) {
+                if (newHead.x == snake[j].x && newHead.y == snake[j].y) {
+                    deadSound.play();
+                }
+            };*/
         }
 
         function switchPosition() {
-            for (var i = 0; i < 2; i++) {
+            for (var i = 0; i < food.length; i++) {
                 food[i] = {
                     x: Math.floor(Math.random() * 17 + 1) * num,
                     y: Math.floor(Math.random() * 15 + 3) * num
@@ -104,33 +123,25 @@
             }
         }
 
+
         var d;
         document.addEventListener("keydown", CTRL);
         function CTRL(event) {
-            if (event.keyCode == 65 && d != "right") {       //left
+            if (event.keyCode == 37 && d != "right") {       //left
                 d = "left";
                 leftSound.play();
             }
-            if (event.keyCode == 87 && d != "down") {       //up
+            if (event.keyCode == 38 && d != "down") {       //up
                 d = "up";
                 upSound.play();
             }
-            if (event.keyCode == 68 && d != "left") {       //right
+            if (event.keyCode == 39 && d != "left") {       //right
                 d = "right";
                 rightSound.play();
             }
-            if (event.keyCode == 83 && d != "up") {       //down
+            if (event.keyCode == 40 && d != "up") {       //down
                 d = "down";
                 downSound.play();
-            }
-        }
-
-        function collision(newHead, snake) {
-            for (var j = 0; j < snake.length; j++) {
-                if (newHead.x == snake[j].x && newHead.y == snake[j].y) {
-                    deadSound.play();
-                    clearInterval(game);
-                }
             }
         }
 
@@ -149,7 +160,7 @@
         var game = setInterval(draw, 150);
 
 
-        //2hw - prompt level & game over popup
+        //3 hw - prompt level & game over popup & die when touch body
     </script>
 
     <style>

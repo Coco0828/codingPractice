@@ -1,0 +1,16 @@
+let apple = new Image();
+let grape = new Image();
+let banana = new Image();
+let berry = new Image();
+let cherry = new Image();
+let orange = new Image();
+let peach = new Image();
+let background = new Image();
+apple.src = "img/Fruits-apple01.png";
+grape.src = "img/Fruits-grape02.png";
+banana.src = "img/Fruits-banana01.png";
+berry.src = "img/Fruits-berry02.png";
+cherry.src = "img/Fruits-cherry01.png";
+orange.src = "img/Fruits-orange01.png";
+peach.src = "img/Fruits-peach01.png";
+background.src = "img/ground.png";
