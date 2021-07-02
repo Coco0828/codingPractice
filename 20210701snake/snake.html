@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="canvas" height="608" width="608"></canvas>
+    <div id="gameOver" class="modal">
+        <!--popup window-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <!--popup header-->
+                <h2>遊戲結束！</h2>
+            </div>
+            <div class="modal-body">
+                <!--popup body-->
+                <p>休息一下再按Restart重新開始吧</p>
+            </div>
+            <div class="modal-footer">
+                <!--popup footer-->
+                <button id="restart">RESTART</button>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        let apple01 = new Image();
+        let grape01 = new Image();
+        let grape02 = new Image();
+        let banana01 = new Image();
+        let banana02 = new Image();
+        let berry01 = new Image();
+        let berry02 = new Image();
+        let cherry01 = new Image();
+        let cherry02 = new Image();
+        let orange01 = new Image();
+        let orange02 = new Image();
+        let peach01 = new Image();
+        let background = new Image();
+        apple01.src = "https://1.bp.blogspot.com/-vRPW40HvUPk/YNVRXNbm9II/AAAAAAAACEU/XfiUihQOVLQJH8dCsZWomYaukHKSNTIeACLcBGAsYHQ/s0/Fruits-apple01.png";
+        grape01.src = "https://1.bp.blogspot.com/-kaQa4m8k3TY/YNVRY9y6t-I/AAAAAAAACE0/HxUxUs-upGYzlKiLNFNmR2BUX9LJuPi0gCLcBGAsYHQ/s0/Fruits-grape01.png";
+        grape02.src = "https://1.bp.blogspot.com/-GwsdRJWb3C0/YNVRY5bV5vI/AAAAAAAACEw/Tqeh7WTf1GoJ7Yot2780R6KQde22qA0gACLcBGAsYHQ/s0/Fruits-grape02.png";
+        banana01.src = "https://1.bp.blogspot.com/-xjpIe3icHpA/YNVRXMAsRLI/AAAAAAAACEY/dlkclaZCEWQnlg7N-lclXFC5gk1P5uNdgCLcBGAsYHQ/s0/Fruits-banana01.png";
+        banana02.src = "https://1.bp.blogspot.com/-rfMDCdYKGSI/YNVRXBv-eXI/AAAAAAAACEc/esEfvAdHshsx_1_ucF3IkdLB49NqHLqmQCLcBGAsYHQ/s0/Fruits-banana02.png";
+        berry01.src = "https://1.bp.blogspot.com/-WWVGy2is31o/YNVRXlxMUCI/AAAAAAAACEg/O_byvRxoHOsPBusIVibSKOqxEtO0Us5NwCLcBGAsYHQ/s0/Fruits-berry01.png";
+        berry02.src = "https://1.bp.blogspot.com/-ibIJV-7Akzc/YNVRXwVXnHI/AAAAAAAACEk/RCf4cbP_2lsv0CaejLAimylspLO7LowHACLcBGAsYHQ/s0/Fruits-berry02.png";
+        cherry01.src = "https://1.bp.blogspot.com/-Iqi3uWvBvF8/YNVRYBqB-jI/AAAAAAAACEo/sOY3O5j8caQOPzSdvrHK26yQDmAT9cUKACLcBGAsYHQ/s0/Fruits-cherry01.png";
+        cherry02.src = "https://1.bp.blogspot.com/-Ke4J-LXxUsE/YNVRYWlfvmI/AAAAAAAACEs/h1H8iTy0OzMNpACuaC0CE9HzIRRGp2tcQCLcBGAsYHQ/s0/Fruits-cherry02.png";
+        orange01.src = "https://1.bp.blogspot.com/-vmr2GLWPkTo/YNVRZOC7xVI/AAAAAAAACE4/PjX86A_4AX0EF4DNhwgqrjCtWRuSTWMdQCLcBGAsYHQ/s0/Fruits-orange01.png";
+        orange02.src = "https://1.bp.blogspot.com/-UNuSRpJNhCU/YNVRZd8H-zI/AAAAAAAACE8/QBHWV6IQpyAaYuSGwNd9x571rd0SswJ9QCLcBGAsYHQ/s0/Fruits-orange02.png";
+        peach01.src = "https://1.bp.blogspot.com/-KqLAGt-zC9Y/YNVRZrOtzbI/AAAAAAAACFA/YRc3w0547kcW2dw2Ds967n_plgu4JJRSACLcBGAsYHQ/s0/Fruits-peach01.png";
+        background.src = "img/ground.png";
+    </script>
+    <script>
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        const num = 32;
+        var score = 0;
+        let deadSound = new Audio();
+        deadSound.src = "./audio/Xylophone-GameOver.wav";
+        let victorySound = new Audio();
+        victorySound.src = "./audio/Xylophone-thirty.wav"
+        let levelUpSound = new Audio();
+        levelUpSound.src = "./audio/Xylophone-ten.wav";
+        let upSound = new Audio();
+        upSound.src = "./audio/Xylophone-Mover_01.mp3";
+        let downSound = new Audio();
+        downSound.src = "./audio/Xylophone-Mover_02.mp3";
+        let leftSound = new Audio();
+        leftSound.src = "./audio/Xylophone-Mover_03.mp3";
+        let rightSound = new Audio();
+        rightSound.src = "./audio/Xylophone-Mover_04.mp3";
+        let eatSound = new Audio();
+        eatSound.src = "./audio/Xylophone-Score.wav";
+        var snake = [];
+        snake[0] = { x: 9 * num, y: 10 * num };
+        //snake[1] = { x: 10 * num, y: 10 * num };
+        var food = [];
+        var fruits = [apple01, grape01, grape02, banana01, banana02, berry01, berry02, cherry01, cherry02, orange01, orange02, peach01];
+        var randomN = Math.floor(Math.random() * 12);
+        //var randomN2 = Math.floor(Math.random() * 6 + 6);
+        food[0] = {}
+        //food[1] = {}
+        switchPosition();
+        var want;
+        var speed;
+        chooseSpeed();
+        var gameOver = document.getElementById("gameOver");
+        var span = document.getElementsByClassName("close")[0];
+
+
+        function chooseSpeed() {
+            want = prompt("請輸入想要的等級1到3：");
+            if (want == "1") {
+                speed = 200;
+            } else if (want == "2") {
+                speed = 150;
+            } else if (want == "3") {
+                speed = 100;
+            } else {
+                alert("請輸入純數字1-3喔");
+                chooseSpeed();
+            }
+        }
+
+        function draw() {
+            ctx.drawImage(background, 0, 0);
+            for (var i = 0; i < snake.length; i++) {
+                ctx.fillStyle = (i == 0) ? "#68849e" : "#7fa0c0";       //#97dfd3& #00ffd5
+                ctx.fillRect(snake[i].x, snake[i].y, num, num);
+                ctx.stokeStyle = "white";
+                ctx.strokeRect(snake[i].x, snake[i].y, num, num);
+            }
+
+            ctx.drawImage(fruits[randomN], food[0].x, food[0].y);
+            //ctx.drawImage(fruits[randomN2], food[1].x, food[1].y);
+            ctx.font = "45px Arial";
+            ctx.fillStyle = "white";
+            ctx.fillText(score, 2 * num, 1.6 * num);
+
+            var snakeX = snake[0].x;
+            var snakeY = snake[0].y;
+
+            if (d == "left") snakeX -= num;
+            if (d == "up") snakeY -= num;
+            if (d == "right") snakeX += num;
+            if (d == "down") snakeY += num;
+
+
+            if ((snakeX == food[0].x && snakeY == food[0].y)) {
+                // || (snakeX == food[1].x && snakeY == food[1].y)
+                score++;
+                eatSound.play();
+                randomN = Math.floor(Math.random() * 12);
+                switchPosition();
+                if (score % 10 == 0 && score % 30 != 0) levelUpSound.play();
+                else if (score % 30 == 0) victorySound.play();
+
+            } else {
+                snake.pop();
+            }
+
+            if (snakeX < num || snakeX > 17 * num || snakeY < 3 * num || snakeY > 17 * num) {
+                deadSound.play();
+                gameOver.style.display = "block";
+                clearInterval(game);
+            }
+
+            var newHead = {
+                x: snakeX,
+                y: snakeY
+            };
+            snake.unshift(newHead);
+
+            for (var j = 1; j < snake.length; j++) {
+                if (newHead.x == snake[j].x && newHead.y == snake[j].y) {
+                    deadSound.play();
+                    gameOver.style.display = "block";
+                    clearInterval(game);
+                }
+            };
+        }
+
+        function switchPosition() {
+            for (var i = 0; i < food.length; i++) {
+                food[i] = {
+                    x: Math.floor(Math.random() * 17 + 1) * num,
+                    y: Math.floor(Math.random() * 15 + 3) * num
+                }
+            }
+        }
+
+
+        var d;
+        document.addEventListener("keydown", CTRL);
+        function CTRL(event) {
+            if (event.keyCode == 37 && d != "right") {       //left
+                d = "left";
+                leftSound.play();
+            }
+            if (event.keyCode == 38 && d != "down") {       //up
+                d = "up";
+                upSound.play();
+            }
+            if (event.keyCode == 39 && d != "left") {       //right
+                d = "right";
+                rightSound.play();
+            }
+            if (event.keyCode == 40 && d != "up") {       //down
+                d = "down";
+                downSound.play();
+            }
+        }
+
+        if (document.getElementById("restart")) {
+            document.getElementById("restart").addEventListener("click", function () {
+                console.log("restart");
+                location.reload();
+            });
+        }
+
+
+
+        ctx.fillStyle = "#921AFF";
+        ctx.fillRect(5 * num, 5 * num, num, num);
+
+        var game = setInterval(draw, speed);
+
+
+        //3 hw - prompt level & game over popup & die when touch body
+    </script>
+
+    <style>
+        body {
+            margin: 0px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            padding-top: 10%;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: #fefefe;
+            margin: auto;
+            padding: 0;
+            border: 1px solid #888;
+            width: 60%;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            -webkit-animation-name: animatetop;
+            -webkit-animation-duration: 0.4s;
+            animation-name: animatetop;
+            animation-duration: 0.4s;
+        }
+
+        @-webkit-keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0;
+            }
+
+            to {
+                top: 0;
+                opacity: 1;
+            }
+        }
+
+        @keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0;
+            }
+
+            to {
+                top: 0;
+                opacity: 1;
+            }
+        }
+
+        #restart {
+            background-color: #89c5fd;
+            color: black;
+            text-align: center;
+            padding: 15px 32px;
+            font-size: 16px;
+            margin: 4px 2px;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        #restart:hover,
+        #restart:focus {
+            background-color: #0888ff;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .modal-header {
+            background-color: #68849e;
+            color: white;
+            padding: 2px 16px;
+            text-align: center;
+            font-weight: bold;
+            font-size: xx-large;
+        }
+
+        .modal-body {
+            padding: 2px 16px;
+            color: black;
+            text-align: center;
+            font-weight: bold;
+            font-size: x-large;
+        }
+
+        .modal-footer {
+            background-color: #68849e;
+            color: white;
+            padding: 2px 16px;
+            text-align: center;
+        }
+    </style>
+</body>
+
+</html>
