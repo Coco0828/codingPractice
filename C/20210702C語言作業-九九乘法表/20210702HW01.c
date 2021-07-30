@@ -16,7 +16,7 @@ int main(){
 		printf("\n");
 	}
 	return 0;
-	
+} 
 	/*int answer;
 	int i,j;
 	for(i = 1; i < 10; i++){
@@ -27,4 +27,4 @@ int main(){
 		}
 	}
 	return 0;*/
-}
+

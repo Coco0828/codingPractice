@@ -78,7 +78,7 @@ console.log("hi");*/
 小兔子長到第三個月後每個月又生一對兔子，假如兔子都不死，問每個月的兔子總數為多少？ 
 1.程式分析：兔子的規律為數列1,1, 2, 3, 5, 8, 13, 21....*/
 
-2+2+4+6+10+16+26+42+68+110+178+288
+/*2+2+4+6+10+16+26+42+68+110+178+288
 
 function Fibo(n)
 {
@@ -88,8 +88,13 @@ function Fibo(n)
 }
 console.log(Fibo(8));
 Fibo(8)
-Fibo(7) + Fibo(6)
+Fibo(7) + Fibo(6) */
     
+
+for(let i = 0; i < 5; i++){
+    console.log(i);
+} 
+
 
 
 //document.getElementById("answer").innerHTML = answer;

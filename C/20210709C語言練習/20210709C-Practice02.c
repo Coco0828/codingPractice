@@ -2,6 +2,69 @@
 #include <time.h> 
 #include <stdlib.h>
 
+int main(){
+	srand((unsigned)time(NULL));
+	int num1, num2;
+	int input1, input2;
+	int times = 0;
+
+	do{
+		times ++;
+		
+		
+		while(times > 1){
+			printf("try again\n");
+			printf("the correct numbers are %d and %d\n", num1, num2);
+			break;
+		}
+		
+		num1 = 1 + rand() % 5;
+		num2 = 6 + rand() % 5;
+		
+		printf("please input the first number:");
+		scanf("%d", &input1);
+		printf("please input the second number:");
+		scanf("%d", &input2);
+		
+	}while(!(num1 == input1 && num2 == input2) && !(num1 == input1 || num2 == input2));
+	
+	if (num1 == input1 && num2 == input2) printf("first prize\n");
+	else if(num1 == input1 || num2 == input2){
+		printf("second prize\n");
+		printf("the correct numbers are %d and %d", num1, num2);
+	}
+	
+	return 0;
+}
+
+
+
+	
+	/*num1 = 1 + rand() % 5;
+	num2 = 6 + rand() % 5;
+	
+	printf("please input the first number:");
+	scanf("%d", &input1);
+	printf("please input the second number:");
+	scanf("%d", &input2);
+	
+	if(num1 == input1 && num2 == input2) printf("first prize\n");
+	else if(num1 == input1 || num2 == input2){
+		printf("second prize\n");
+		printf("the correct number is %d and %d", num1, num2);
+	}
+	else{
+		printf("try again\n");
+		printf("the correct number is %d and %d\n", num1, num2);
+		num1 = 1 + rand() % 5;
+		num2 = 6 + rand() % 5;
+		printf("please input the first number:");
+		scanf("%d", &input1);
+		printf("please input the second number:");
+		scanf("%d", &input2);
+	}*/
+	
+	
 /*int main(){
 	int i = 3;
 	int a;
@@ -70,63 +133,5 @@ int main(){
 	return 0;
 }*/
 
-int main(){
-	srand((unsigned)time(NULL));
-	int num1, num2;
-	int input1, input2;
-	int times = 0;
 	
-	/*num1 = 1 + rand() % 5;
-	num2 = 6 + rand() % 5;
-	
-	printf("please input the first number:");
-	scanf("%d", &input1);
-	printf("please input the second number:");
-	scanf("%d", &input2);
-	
-	if(num1 == input1 && num2 == input2) printf("first prize\n");
-	else if(num1 == input1 || num2 == input2){
-		printf("second prize\n");
-		printf("the correct number is %d and %d", num1, num2);
-	}
-	else{
-		printf("try again\n");
-		printf("the correct number is %d and %d\n", num1, num2);
-		num1 = 1 + rand() % 5;
-		num2 = 6 + rand() % 5;
-		printf("please input the first number:");
-		scanf("%d", &input1);
-		printf("please input the second number:");
-		scanf("%d", &input2);
-	}*/
-	
-	do{
-		times ++;
-		
-		
-		while(times > 1){
-			printf("try again\n");
-			printf("the correct number is %d and %d\n", num1, num2);
-			break;
-		}
-		
-		num1 = 1 + rand() % 5;
-		num2 = 6 + rand() % 5;
-		
-		printf("please input the first number:");
-		scanf("%d", &input1);
-		printf("please input the second number:");
-		scanf("%d", &input2);
-		
-	}while(!(num1 == input1 && num2 == input2) && !(num1 == input1 || num2 == input2));
-	
-	if (num1 == input1 && num2 == input2) printf("first prize\n");
-	else if(num1 == input1 || num2 == input2){
-		printf("second prize\n");
-		printf("the correct number is %d and %d", num1, num2);
-	}
-	
-	return 0;
-}
-
 

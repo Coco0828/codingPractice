@@ -11,6 +11,26 @@
 
 <body>
     <canvas id="canvas" height="608" width="608"></canvas>
+    <div id="chooseLevel" class="modal">
+        <!--popup window-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <!--popup header-->
+                <h2>請選擇遊戲難度：</h2>
+            </div>
+            <div class="modal-body">
+                <!--popup body-->
+                <p>速度不一樣喔</p>
+            </div>
+            <div class="modal-footer">
+                <!--popup footer-->
+                <button id="easy">輕鬆</button>
+                <button id="middle">中等</button>
+                <button id="hard">困難</button>
+            </div>
+        </div>
+
+    </div>
     <div id="gameOver" class="modal">
         <!--popup window-->
         <div class="modal-content">
@@ -55,7 +75,7 @@
         orange01.src = "https://1.bp.blogspot.com/-vmr2GLWPkTo/YNVRZOC7xVI/AAAAAAAACE4/PjX86A_4AX0EF4DNhwgqrjCtWRuSTWMdQCLcBGAsYHQ/s0/Fruits-orange01.png";
         orange02.src = "https://1.bp.blogspot.com/-UNuSRpJNhCU/YNVRZd8H-zI/AAAAAAAACE8/QBHWV6IQpyAaYuSGwNd9x571rd0SswJ9QCLcBGAsYHQ/s0/Fruits-orange02.png";
         peach01.src = "https://1.bp.blogspot.com/-KqLAGt-zC9Y/YNVRZrOtzbI/AAAAAAAACFA/YRc3w0547kcW2dw2Ds967n_plgu4JJRSACLcBGAsYHQ/s0/Fruits-peach01.png";
-        background.src = "img/ground.png";
+        background.src = "img/background-unicorn.png";
     </script>
     <script>
         const canvas = document.getElementById("canvas");
@@ -88,31 +108,38 @@
         food[0] = {}
         //food[1] = {}
         switchPosition();
-        var want;
         var speed;
-        chooseSpeed();
+        var game;
         var gameOver = document.getElementById("gameOver");
-        var span = document.getElementsByClassName("close")[0];
+        var chooseLevel = document.getElementById("chooseLevel");
+        chooseLevel.style.display = "block";
 
-
-        function chooseSpeed() {
-            want = prompt("請輸入想要的等級1到3：");
-            if (want == "1") {
+        if (document.getElementById("easy")) {
+            document.getElementById("easy").addEventListener("click", function () {
                 speed = 200;
-            } else if (want == "2") {
+                chooseLevel.style.display = "none";
+                game = setInterval(draw, speed);
+            });
+        }
+        if (document.getElementById("middle")) {
+            document.getElementById("middle").addEventListener("click", function () {
                 speed = 150;
-            } else if (want == "3") {
+                chooseLevel.style.display = "none";
+                game = setInterval(draw, speed);
+            });
+        }
+        if (document.getElementById("hard")) {
+            document.getElementById("hard").addEventListener("click", function () {
                 speed = 100;
-            } else {
-                alert("請輸入純數字1-3喔");
-                chooseSpeed();
-            }
+                chooseLevel.style.display = "none";
+                game = setInterval(draw, speed);
+            });
         }
 
         function draw() {
             ctx.drawImage(background, 0, 0);
             for (var i = 0; i < snake.length; i++) {
-                ctx.fillStyle = (i == 0) ? "#68849e" : "#7fa0c0";       //#97dfd3& #00ffd5
+                ctx.fillStyle = (i == 0) ? "#97dfd3" : "#00ffd5";       //#68849e & #7fa0c0
                 ctx.fillRect(snake[i].x, snake[i].y, num, num);
                 ctx.stokeStyle = "white";
                 ctx.strokeRect(snake[i].x, snake[i].y, num, num);
@@ -121,8 +148,8 @@
             ctx.drawImage(fruits[randomN], food[0].x, food[0].y);
             //ctx.drawImage(fruits[randomN2], food[1].x, food[1].y);
             ctx.font = "45px Arial";
-            ctx.fillStyle = "white";
-            ctx.fillText(score, 2 * num, 1.6 * num);
+            ctx.fillStyle = "black";
+            ctx.fillText(score, 2.2 * num, 2.0 * num);
 
             var snakeX = snake[0].x;
             var snakeY = snake[0].y;
@@ -200,7 +227,6 @@
 
         if (document.getElementById("restart")) {
             document.getElementById("restart").addEventListener("click", function () {
-                console.log("restart");
                 location.reload();
             });
         }
@@ -210,10 +236,6 @@
         ctx.fillStyle = "#921AFF";
         ctx.fillRect(5 * num, 5 * num, num, num);
 
-        var game = setInterval(draw, speed);
-
-
-        //3 hw - prompt level & game over popup & die when touch body
     </script>
 
     <style>
@@ -284,8 +306,24 @@
             font-weight: bold;
         }
 
+        #easy, #middle, #hard {
+            background-color: #89c5fd;
+            color: black;
+            padding: 15px 32px;
+            font-size: 16px;
+            margin: 4px 2px;
+            display: inline-block;
+            font-weight: bold;
+        }
+
         #restart:hover,
-        #restart:focus {
+        #restart:focus,
+        #easy:hover,
+        #easy:focus,
+        #middle:hover,
+        #middle:focus,
+        #hard:hover,
+        #hard:focus {
             background-color: #0888ff;
             color: white;
             cursor: pointer;
