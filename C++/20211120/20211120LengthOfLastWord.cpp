@@ -4,14 +4,18 @@ using namespace std;
 
 int main(){
 	string s;
-	cin >> s;
+	while(true){
+		getline(cin, s);
+	} 
 	
 	int i, n = 0;
+	
+	cout << s.length() << "¡@";
 	
 	for(i = 0; i <= s.length(); i ++){
 		n ++;
 		if(s[i] == ' ') n = 0;
-		cout << n << " ";
+		//cout << n << " ";
 	}
 	
 	cout << n;	
