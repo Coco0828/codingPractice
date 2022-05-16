@@ -1,11 +1,12 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
 int main(){
-	__int64 a, b, answer;
+	unsigned long long int a, b, answer;
 	char way;
 	
-	cin >> a >> way >> b;
+	scanf("%d %c %d", &a, &way, &b);
 	
 	if(way == '+') answer = a + b; 
 	else if(way == '-') answer = a - b;

@@ -2,12 +2,14 @@
 #include <string.h>
 
 int main(){
-	char *string[1];
+	char *string[100];
 	int i;
 	
 	scanf("%s", &string);
 	
-	secret(&string[0]);
+	for(i = 0; i < strlen(string); i ++){
+		secret(&string[i]);
+	}
 	
 	printf("%s", string);
 	

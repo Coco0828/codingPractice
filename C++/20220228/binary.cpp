@@ -8,16 +8,12 @@ int main(){
     while(cin >> decimal){
     	if(decimal == 0){
     		cout << 0;
-    		return 0;
+    		break;
 		}
 		if(decimal == 1){
 			cout << 1;
-			return 0;
+			break;
 		}
-        /*for(i = 0; decimal >= 0; i ++){
-        	binary[i] = decimal % 2;
-            decimal = decimal / 2;
-		}*/
 		while(decimal){
 			binary[i] = decimal % 2;
             decimal = decimal / 2;
@@ -27,8 +23,8 @@ int main(){
         	if(j != i || binary[j] != 0){
         		cout << binary[j];
 			}
-        
 		}
     }
+    return 0;
 }
 

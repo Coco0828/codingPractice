@@ -2,12 +2,17 @@
 #include <string.h>
 #include <stdlib.h> 
 
+void new();
+void edit();
+void delete();
+
 struct class_sample{
-	char subject[10] = '0';
+	char subject[10];
 	char date[3];
 	int lesson;
 };
 struct class_sample class[40];
+char *zero = "0";
 
 int main(){
 	int i;
@@ -30,11 +35,11 @@ int main(){
 	printf("1");
 	
 	for(i = 0;i < 40;i++){
-		if(class[i].subject = '0'){
+		if(strcmp(class[i].subject, zero) == 0){
 			printf("None");
 			continue;
 		}
-		if(class[i].lesson = 1){
+		if(class[i].lesson == 1){
 			printf("%s		", class[i].subject);
 		}
 	}
@@ -42,11 +47,11 @@ int main(){
 	printf("2\n");
 	
 	for(i = 0;i < 40;i++){
-		if(class[i].subject = '0'){
+		if(strcmp(class[i].subject, zero) == 0){
 			printf("None");
 			continue;
 		}
-		if(class[i].lesson = 2){
+		if(class[i].lesson == 2){
 			printf("%s		", class[i].subject);
 		}
 	}
@@ -54,11 +59,11 @@ int main(){
 	printf("3\n");
 	
 	for(i = 0;i < 40;i++){
-		if(class[i].subject = '0'){
+		if(strcmp(class[i].subject, zero) == 0){
 			printf("None");
 			continue;
 		}
-		if(class[i].lesson = 3){
+		if(class[i].lesson == 3){
 			printf("%s		", class[i].subject);
 		}
 	}
@@ -66,11 +71,11 @@ int main(){
 	printf("4\n");
 	
 	for(i = 0;i < 40;i++){
-		if(class[i].subject = '0'){
+		if(strcmp(class[i].subject, zero) == 0){
 			printf("None");
 			continue;
 		}
-		if(class[i].lesson = 4){
+		if(class[i].lesson == 4){
 			printf("%s		", class[i].subject);
 		}
 	}
@@ -78,11 +83,11 @@ int main(){
 	printf("5\n");
 	
 	for(i = 0;i < 40;i++){
-		if(class[i].subject = '0'){
+		if(strcmp(class[i].subject, zero) == 0){
 			printf("None");
 			continue;
 		}
-		if(class[i].lesson = 5){
+		if(class[i].lesson == 5){
 			printf("%s		", class[i].subject);
 		}
 	}
@@ -90,11 +95,11 @@ int main(){
 	printf("6\n");
 	
 	for(i = 0;i < 40;i++){
-		if(class[i].subject = '0'){
+		if(strcmp(class[i].subject, zero) == 0){
 			printf("None");
 			continue;
 		}
-		if(class[i].lesson = 6){
+		if(class[i].lesson == 6){
 			printf("%s		", class[i].subject);
 		}
 	}
@@ -102,11 +107,11 @@ int main(){
 	printf("7\n");
 	
 	for(i = 0;i < 40;i++){
-		if(class[i].subject = '0'){
+		if(strcmp(class[i].subject, zero) == 0){
 			printf("None");
 			continue;
 		}
-		if(class[i].lesson = 7){
+		if(class[i].lesson == 7){
 			printf("%s		", class[i].subject);
 		}
 	}
@@ -114,11 +119,11 @@ int main(){
 	printf("8");
 	
 	for(i = 0;i < 40;i++){
-		if(class[i].subject = '0'){
+		if(strcmp(class[i].subject, zero) == 0){
 			printf("None");
 			continue;
 		}
-		if(class[i].lesson = 8){
+		if(class[i].lesson == 8){
 			printf("%s		", class[i].subject);
 		}
 	}
@@ -131,7 +136,7 @@ void new(){
 	int lesson, i;
 	
 	printf("新增課堂(種類 日 第幾節):");
-	scanf("%s %s %d", &subject, &day, &lesson);
+	scanf("%s %s %d", subject, day, &lesson);
 	
 	if(day[0] == 'M' && day[1] == 'o' && day[2] == 'n')i = 1*8 + lesson;
 	if(day[0] == 'T' && day[1] == 'u' && day[2] == 'e')i = 2*8 + lesson;
@@ -139,7 +144,7 @@ void new(){
 	if(day[0] == 'T' && day[1] == 'h' && day[2] == 'u')i = 4*8 + lesson;
 	if(day[0] == 'F' && day[1] == 'r' && day[2] == 'i')i = 5*8 + lesson;
 	
-	class[i]{subject, date, lesson};
+	//class[i]{subject, date, lesson};
 }
 
 void delete(){
@@ -150,8 +155,8 @@ void delete(){
 	scanf("%s", subject);
 
 	for(i = 0; i < 40; i ++){
-		if (class[i].subject == subject){
-			class[i].subject == '0';
+		if (strcmp(class[i].subject, subject) == 0){
+			strcpy(class[i].subject,zero);
 		}
 		
 	}
@@ -165,7 +170,7 @@ void edit(){
 	
 	if(way == 1){
 		printf("請輸入想刪除的課堂(日 節次):");
-		scanf("%s %s", &day, &lesson);
+		scanf("%s %s", day, &lesson);
 		
 		if(day[0] == 'M' && day[1] == 'o' && day[2] == 'n')k = 0;
 		if(day[0] == 'T' && day[1] == 'u' && day[2] == 'e')k = 1;
@@ -175,7 +180,7 @@ void edit(){
 		
 		for(i = 0; i < 40; i ++){	
 			if (i == k * 8 + lesson){
-				class[i].subject = '0';
+				strcpy(class[i].subject,zero);
 			}
 		}
 		
@@ -185,8 +190,8 @@ void edit(){
 		scanf("%s %s", oldSubject, newSubject);
 		
 		for(i = 0; i < 40; i ++){
-			if (class[i].subject == oldSubject){
-				class[i].subject == newSubject;
+			if (strcmp(class[i].subject, oldSubject) == 0){
+				strcpy(class[i].subject,newSubject);
 			}
 		}
 	}

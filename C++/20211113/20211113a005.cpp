@@ -1,17 +1,24 @@
 #include <iostream>
+#include <stdio.h>
 using namespace std;
 
 int main(){
 	int t;
-	int a, b, c, d, e;
+	int a[10], b[10], c[10], d[10], e[10];
 	
-	while(cin >> t){
-		while(t-->=1){
-			scanf("%d %d %d %d", &a, &b, &c, &d);
-			if((b-a) == (c-b)) e = d + (b-a);
-			else if((b/a) == (c/b)) e = d * (b/a);
-			printf("%d %d %d %d %d", a, b, c, d, e);
-		}
+	cin >> t;
+	
+	int i;
+	
+	for(i = 0; i < t; i ++){
+		scanf("%d %d %d %d", &a[i], &b[i], &c[i], &d[i]);
+		if((b[i]-a[i]) == (c[i]-b[i])) e[i] = d[i] + (b[i]-a[i]);
+		else if((b[i]/a[i]) == (c[i]/b[i])) e[i] = d[i] * (b[i]/a[i]);
+		else cout << "Error";
+	}
+	
+	for(i = 0; i < t; i ++){
+		cout << a[i] << " " << b[i] << " " << c[i] << " " << d[i] << " " << e[i] << endl;
 	}
 	
 	return 0;

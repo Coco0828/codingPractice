@@ -15,9 +15,11 @@ int calculateGCD(int a, int b){
 
 int main(){
 	int a, b, ans;
-	scanf("%d %d", &a, &b);
-	ans = calculateGCD(a, b);
-	cout << ans;
+	
+	while(scanf("%d %d", &a, &b)){
+		ans = calculateGCD(a, b);
+		cout << ans << endl;	
+	}
 	
 	return 0;
 }

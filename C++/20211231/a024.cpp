@@ -1,30 +1,18 @@
 #include <iostream>
 using namespace std;
 
-int calculateGCD(int a, int b);
-
 int main(){
-	int m, n;
+	__int64 m, n, i, min;
 	
 	scanf("%d %d", &m, &n);
 	
-	int GCD;
-	
-	GCD = calculateGCD(m, n);
-	
-	cout << GCD;
-	
-	return 0;
-}
-
-int calculateGCD(int a, int b){
-	int i, min;
-	
-	for(i = a; i > 0; i --){
-		if(a % i == 0 && b % i == 0){
+	for(i = m; i > 0; i --){
+		if(m % i == 0 && n % i == 0){
 			min = i;
 			break;
 		}
 	}
-	return min;
+	cout << min << endl;
+	
+	return 0;
 }

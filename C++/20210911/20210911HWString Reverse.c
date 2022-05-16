@@ -19,7 +19,7 @@ int main(){
 	
 	for(i = 0; i < num; i ++){	
 		for(k = 7; k >= 0; k --){
-			if(song[i] >= "a" && song[i] <= "z"){
+			if(song[i][k] >= "a" && song[i][k] <= "z"){
 				for(j = i+1; i < num; i ++){
 					if(strcmp(song[i][k], song[j][0]) == 0){
 						strcpy(song[i], zero);
