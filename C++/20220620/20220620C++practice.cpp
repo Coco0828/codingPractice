@@ -7,9 +7,6 @@
 #include <iomanip>
 using namespace std;
 
-struct myclass {
-    bool operator() (int a, int b) { return a > b; }
-} myobject;
 
 class Student{
     public:
@@ -17,6 +14,10 @@ class Student{
     	vector<int> score;
     	float average;
 };
+
+bool operator<(Student a, Student b){
+	return a.average < b.average;
+}
 void getTotal(int *Total, string *str){
 	int string_temp_last = (*str).find(';');
     stringstream ss;
@@ -66,7 +67,7 @@ int main()
             {
                 getScore(&temp_student, &str);
             }
-            sort(temp_student.score.begin(), temp_student.score.end(), myobject);
+            //sort(temp_student.score.begin(), temp_student.score.end(), myobject);
             
 			students.push_back(temp_student);
         }
@@ -80,7 +81,10 @@ int main()
 		students[i].average /= scores_total;
 	}
 	
-	int max = 0, min = 100;
+	sort(students.begin(), students.end());
+	reverse(students.begin(), students.end());
+	
+	/*int max = 0, min = 100;
 	int n, m;
 	for(int i = 0; i < students_total; i ++){
 		if(students[i].average > max){
@@ -91,20 +95,21 @@ int main()
 			min = students[i].average;
 			m = i;
 		}
-	}
-	cout << students[n].name << endl;
-	cout << students[m].name << endl;
+	}*/
+	/*cout << students[n].name << endl;
+	cout << students[m].name << endl;*/
 
-	cout << endl;
+	//cout << endl;
     cout << students_total << " " << scores_total << endl;
     for (int i = 0; i < students_total; i++)
     {
-        cout << students[i].name << " " << endl;
-        for (int j = 0; j < scores_total; j++)
+        cout << students[i].name << "'s avg: ";
+        /*for (int j = 0; j < scores_total; j++)
         {
             cout << students[i].score[j] << " ";
-        }
+        }*/
         cout << setprecision(1) << fixed << students[i].average;
+        (students[i].average >= 65)?cout << " (pass)":cout << " (fail)";
         cout << endl;
     }
 
