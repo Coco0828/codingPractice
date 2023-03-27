@@ -5,6 +5,8 @@ int main(){
 	int n;
 	cin >> n;
 	
+	if(n == 0) return 0;
+	
 	while(n % 2 == 0){
 		n /= 2;
 	}
@@ -15,14 +17,14 @@ int main(){
 		n /= 5;
 	}
 	
-	cout << n%7;
+	//cout << n << endl; 
 	int k = 0;
-	for(int i = 6; i < n; i ++){
+	for(int i = 6; i <= n; i ++){
 		if(n % i == 0){
 			k ++;
 		}
 	}
-	cout << k;
+	//cout << k;
 	
 	(k != 0)? cout << "beautiful":cout << "ugly";
 	
