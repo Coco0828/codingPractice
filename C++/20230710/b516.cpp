@@ -6,7 +6,7 @@ int main(){
 	cin >> n;
 	while(n){
 		string a;
-		getline(cin, a);
+		cin >> a;
 		
 		for(int i = 0; i < a.size(); i++){
 			if(a[i]=='X' || a[i]=='Y' || a[i]=='Z') a[i] -= 23;
